@@ -1,0 +1,27 @@
+Memory Leaks : 
+A failure in a program to release discarded memory, causing impaired performance or failure.
+
+-- To avoid memory leaks, memory allocated on heap should always be freed when no longer needed.
+-- Instead of managing memory manually, try to use smart pointers where applicable.
+-- Use std::string instead of char *. The std::string class handles all memory management internally, and it’s fast and well-optimized.
+-- Never use a raw pointer unless it’s to interface with an older lib.
+-- The best way to avoid memory leaks in C++ is to have as few new/delete calls at the program level as possible – ideally NONE. Anything that
+    equires dynamic memory should be buried inside an RAII object that releases the memory when it goes out of scope. RAAI allocate memory in
+    constructor and release it in destructor, so that memory is garanteed to be deallocated when the variable leave the current scope.
+-- Allocate memory by new keyword and deallocate memory by delete keyword and write all code between them.
+
+
+RAII : Resource allocation is Initiliazation.
+
+-- RAII stands for "Resource Acquisition is Initialisation." The "resource acquisition" part of RAII is where you begin something that must be
+    ended later, such as:
+		Opening a file (and closing it later)
+		Allocating some memory (and deallocating it later)
+		Acquiring a lock (and releasing it later)
+
+-- The C++ library classes that manage their own resources follow RAII: std::string, std::vector, std::thread, and many others acquire their resources
+    in constructors (which throw exceptions on errors), release them in their destructors (which never throw), and don't require explicit cleanup.
+-- In addition, the standard library offers several RAII wrappers to manage user-provided resources: 
+        std::unique_ptr and std::shared_ptr to manage dynamically-allocated memory or, with a user-provided deleter, any resource represented by
+        a plain pointer;
+-- std::lock_guard, std::unique_lock, std::shared_lock to manage mutexes. 

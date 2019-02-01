@@ -1,0 +1,59 @@
+###########################################################################################################################################
+Data TYPE :     Size :      Sign :
+
+BYTE            8 bits      Unsigned
+DWORD           32 bits     Unsigned
+INT32           32 bits     Signed
+INT64           64 bits     Signed
+LONG            32 bits     Signed
+LONGLONG	64 bits     Signed
+UINT32          32 bits     Unsigned
+UINT64          64 bits     Unsigned
+ULONG           32 bits     Unsigned
+ULONGLONG	64 bits     Unsigned
+WORD            16 bits     Unsigned
+
+###########################################################################################################################################
+
+Boolean Types
+
+#define FALSE    0
+#define TRUE     1
+
+###########################################################################################################################################
+Here are some other string-related typedefs that you will see:
+
+Typedef:                Definition :
+
+CHAR                    char
+PSTR or LPSTR           char*
+PCSTR or LPCSTR         const char*
+PWSTR or LPWSTR         wchar_t*
+PCWSTR or LPCWSTR	const wchar_t*
+
+###########################################################################################################################################
+Unicode and ANSI Functions :
+
+When Microsoft introduced Unicode support to Windows, it eased the transition by providing two parallel sets of APIs, one for ANSI strings
+and the other for Unicode strings. For example, there are two functions to set the text of a window's title bar:
+
+SetWindowTextA takes an ANSI string.
+SetWindowTextW takes a Unicode string.
+
+#ifdef UNICODE
+#define SetWindowText  SetWindowTextW
+#else
+#define SetWindowText  SetWindowTextA
+#endif
+
+###########################################################################################################################################
+
+Windows SDK provides macros that map strings to Unicode or ANSI, depending on the platform.
+
+Macro           Unicode         ANSI
+TCHAR           wchar_t         char
+TEXT("x")	L"x"            "x"
+
+e.g.
+SetWindowTextW(L"My Application"); // Unicode function with wide-character string.
+SetWindowTextA("My Application");  // ANSI function.
