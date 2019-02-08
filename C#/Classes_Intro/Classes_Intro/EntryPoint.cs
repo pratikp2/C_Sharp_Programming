@@ -4,27 +4,21 @@
 //using System.Text;
 //using System.Threading.Tasks;
 
+
+
 using PointAndLines;        // changes Syntsx
+using StaticClasses;
 
 class EntryPoint
 {
     static int Main()
         {
-        User Objuser = new User();
+        User Objuser = new User("Pratik",Race.Marsian);
 
-        Objuser.Username = "abcd";
-        Objuser.Password = 5;
-
-
-        System.Console.WriteLine(Objuser.Username);
-        System.Console.WriteLine(Objuser.Password);
+        Utilities.SetTextColour("Pratik", System.ConsoleColor.Green);
 
 
-        //System.Console.WriteLine("Press Enter To Close");
-        //System.Console.ReadLine();
-
-        //OR Press ctrl + F5
-
+        System.Console.ReadLine();      //OR Press ctrl + F5
         return 0;
     }
 }

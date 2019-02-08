@@ -1,11 +1,24 @@
-﻿namespace PointAndLines
+﻿enum Race
+{
+    Earthling,
+    Marsian,
+    Kerptoniyan
+}
+
+namespace PointAndLines
 {
     class User
     {
-        private string username;           //  Fields    
+        public static int currentUsers;
+        public readonly int ID;             // Read only    : Value has to be assigned at time of execution.
+        public const int HEIGHT = 150;      // const        : Value must be assigned before execution in compile time. 
+        public Race race;
+
+        private string username;            //  Fields    
         private int password;
 
-        public string Username             // Property
+
+        public string Username              // Property
         {
             get { return "The Username is " + username; }
 
@@ -32,11 +45,18 @@
                 }
             }
         }
-        public User() { }
-        public User(string username, int password)
+
+        public User()
+        {
+            currentUsers++;
+            ID = currentUsers;
+        }
+        public User(string username, Race race)
         {
             this.username = username;
-            this.password = password;
+            currentUsers++;
+            ID = currentUsers;
+            this.race = race;
         }
     }
 }
