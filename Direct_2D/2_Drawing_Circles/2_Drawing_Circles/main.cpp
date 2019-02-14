@@ -16,6 +16,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		graphics->DrawCircle(400, 300, 200, 1.0, 0.0, 0.0, 1.0);
 		graphics->DrawCircle(400, 300, 100, 0.0, 1.0, 0.0, 1.0);
 		graphics->DrawCircle(400, 300, 295, 0.0, 0.0, 1.0, 1.0);
+		graphics->DrawCaps();
 		graphics->EndDraw();
 	}
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);	// Default window behaviour if uMsg is unknown.

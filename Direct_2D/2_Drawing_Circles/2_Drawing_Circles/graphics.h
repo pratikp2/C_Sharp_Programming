@@ -18,4 +18,5 @@ public :
 	void EndDraw() { rendertarget->EndDraw(); }
 	void ClearScreen(float r, float g, float b);
 	void DrawCircle(float x, float y, float radius, float r, float g, float b, float alpha);
+	void DrawCaps();
 };

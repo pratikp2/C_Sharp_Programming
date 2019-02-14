@@ -43,3 +43,39 @@ void Graphics :: DrawCircle(float x, float y, float radius, float r, float g, fl
 	brush->SetColor(D2D1::ColorF(r, g, b, alpha));
 	rendertarget->DrawEllipse(D2D1::Ellipse(D2D1::Point2F(x, y), radius, radius), brush, 1.0f);
 }
+
+void Graphics::DrawCaps()
+{
+	ID2D1StrokeStyle * m_pStrokeStyleCustomOffsetZero;
+
+	factory->CreateStrokeStyle(
+		D2D1::StrokeStyleProperties(
+			D2D1_CAP_STYLE_FLAT,
+			D2D1_CAP_STYLE_TRIANGLE,
+			D2D1_CAP_STYLE_FLAT,
+			D2D1_LINE_JOIN_MITER,
+			10.0f,
+			D2D1_DASH_STYLE_SOLID,
+			0.0f),
+		0,
+		0,
+		&m_pStrokeStyleCustomOffsetZero
+	);
+
+	rendertarget->DrawLine(
+		D2D1::Point2F(350, 300),
+		D2D1::Point2F(449, 300),
+		brush,
+		1.0f,
+		m_pStrokeStyleCustomOffsetZero
+	);
+
+	rendertarget->DrawLine(
+		D2D1::Point2F(449, 300),
+		D2D1::Point2F(450, 300),
+		brush,
+		8.0f,
+		m_pStrokeStyleCustomOffsetZero
+	);
+
+}
