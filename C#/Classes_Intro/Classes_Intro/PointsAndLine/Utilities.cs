@@ -7,6 +7,7 @@ namespace StaticClasses
         public static void SetTextColour(string Message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
+            Console.BackgroundColor = ConsoleColor.White;
             Console.WriteLine(Message);
             Console.ResetColor(); 
         }

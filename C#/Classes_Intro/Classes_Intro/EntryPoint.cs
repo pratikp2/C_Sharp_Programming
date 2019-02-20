@@ -11,7 +11,7 @@ using StaticClasses;
 
 class EntryPoint
 {
-    static int Main()
+    static public int Main()
         {
         User Objuser = new User("Pratik",Race.Marsian);
 
@@ -22,3 +22,9 @@ class EntryPoint
         return 0;
     }
 }
+
+
+// The Main() method is the entry point a C# program from where the execution starts.
+// Main() method must be static because it is a class level method.To invoked without any instance of the class it must be static. Non-static Main() method will give a compile-time error.
+// Main() Method cannot be overridden because it is the static method.Also, the static method cannot be virtual or abstract.
+// Overloading of Main() method is allowed.But in that case, only one Main() method is considered as one entry point to start the execution of the program.
