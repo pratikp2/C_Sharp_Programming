@@ -46,6 +46,7 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Enum\Faction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="warrior.cs" />
     <Compile Include="Equiment\Weapon.cs" />
   </ItemGroup>

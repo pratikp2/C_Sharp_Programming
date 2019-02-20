@@ -1,12 +1,14 @@
-﻿using WarriorWars.Enum;
+﻿using System;
+using System.Threading;
+using WarriorWars.Enum;
 using WarriorWars.Equipment;
 
 namespace WarriorWars
 {
     class warrior
     {
-        private const int M_GOOD_GUY_STARTING_HEALTH = 100;
-        private const int M_BAD_GUY_STARTING_HEALTH = 100;
+        private const int M_GOOD_GUY_STARTING_HEALTH = 20;
+        private const int M_BAD_GUY_STARTING_HEALTH = 20;
 
         private int m_health;
         private string m_name;
@@ -21,7 +23,7 @@ namespace WarriorWars
 
         public warrior(string name, Faction faction)
         {
-            this.m_name =name;
+            this.m_name = name;
             this.M_FACTION = faction;
             m_isAlive = true;
 
@@ -42,9 +44,30 @@ namespace WarriorWars
             }
         }
 
-        public void Attack(warrior Enemy)
+        public void Attack(warrior enemy)
         {
+            int damage = m_weapon.Damage / enemy.m_armor.ArmorPoints;
+            enemy.m_health = enemy.m_health - damage;
 
+            AttackResult(enemy, damage);
+            Thread.Sleep(100);
+        }
+
+        private void AttackResult(warrior enemy, int damage)
+        {
+            if (enemy.m_health < 0)
+            {
+                enemy.m_isAlive = false;
+                Tools.selectColour($"{enemy.m_name} is dead.", ConsoleColor.Red);
+                Tools.selectColour($"{this.m_name} is Victorious", ConsoleColor.Green);
+            }
+            else
+            {
+                Console.WriteLine($"{this.m_name} Attacked {enemy.m_name} for {damage} points Damage ");
+                Console.WriteLine($"{this.m_name}'s Current Health is {m_health}.");
+                Console.WriteLine($"{enemy.m_name}'s Current Health is {enemy.m_health}.");
+                Console.WriteLine($"_ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _");
+            }
         }
     }
 }
