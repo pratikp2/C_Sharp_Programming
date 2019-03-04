@@ -1,6 +1,7 @@
 #include <Windows.h>
 
 #define SUBMIT_INFORMATION 4
+#define FILE_MENU_EXIT 13
 
 // Functions
 void AddMenu(HWND);
@@ -63,7 +64,7 @@ void AddMenu(HWND hwnd)
 	AppendMenu(popoutFile, MF_STRING, 11, "New File");
 	AppendMenu(popoutFile, MF_POPUP, (UINT_PTR)subMenu, "Save File");		// Layer Two
 	AppendMenu(popoutFile, MF_SEPARATOR, NULL, NULL);
-	AppendMenu(popoutFile, MF_STRING, 13, "Exit");
+	AppendMenu(popoutFile, MF_STRING, FILE_MENU_EXIT, "Exit");
 
 	AppendMenu(popoutView, MF_STRING, 21, "Vertical Partition");
 	AppendMenu(popoutView, MF_STRING, 22, "HorixontL Partition");
@@ -141,8 +142,15 @@ void Handle_WM_COMMAND(WPARAM wp, HWND hwnd)
 	MessageBeep(MB_OK); // To create Sound 
 
 	LPCSTR item = "NULL";
+	int retVal = 0;
+
 	switch (wp)
 	{
+	case FILE_MENU_EXIT:
+	  retVal = MessageBoxW(hwnd,L"Warning", L"Are You Sure you want to exit ?",MB_YESNO | MB_ICONQUESTION);
+		if (retVal == IDYES) { DestroyWindow(hwnd); }
+		break;
+
 	case SUBMIT_INFORMATION:
 
 		char TextName[40];
@@ -152,10 +160,19 @@ void Handle_WM_COMMAND(WPARAM wp, HWND hwnd)
 		GetWindowText(hEditName, TextName, 100);
 		GetWindowText(hEditAge, TextAge, 5);
 
-		strcpy_s(TextOutput, TextName);
-		strcat_s(TextOutput, " is ");
-		strcat_s(TextOutput, TextAge);
-		strcat_s(TextOutput, " years Old. ");
+		if (_strcmpi(TextName, "") || _strcmpi(TextAge, ""))
+		{
+			retVal = MessageBoxW(hwnd,L"Please Enter Correct Information .... !",L"Error", MB_ABORTRETRYIGNORE | MB_ICONERROR);
+			if (retVal == IDABORT) { DestroyWindow(hwnd); }
+			else if(retVal == IDRETRY) { break; }
+			else
+			{
+				strcpy_s(TextOutput, TextName);
+				strcat_s(TextOutput, " is ");
+				strcat_s(TextOutput, TextAge);
+				strcat_s(TextOutput, " years Old. ");
+			}
+		}
 
 		SetWindowText(hEditOutput, TextOutput);
 		break;
@@ -174,3 +191,14 @@ void CreateBox(LPCSTR text)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Types of message boses
+// MB_ABORTRETRYIGNORE : 3 - 1.ABORT 2.RETRY 3.IGNORE 
+// MB_CANCELTRYCONTINEW : 3 - 1.CANCEL 2.TRY 3.CONTINUE
+// MB_HELP : 1 - 1.HELP
+// MB_OK : 1 - 1.OK
+// MB_OKCANCEL : 2 - 1.OK 2.CANCEL
+// MB_RETRYCANCEL : 2 - 1.RETRY 2.CANCEL
+// MB_YESNOCANCEL : 3 - 1.YES 2.NO 3.CANCEL
+
