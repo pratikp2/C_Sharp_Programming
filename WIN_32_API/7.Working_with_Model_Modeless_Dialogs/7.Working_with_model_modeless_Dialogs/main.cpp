@@ -1,20 +1,29 @@
 #include <Windows.h>
 
-#define SUBMIT_INFORMATION 4
+#define CLOSE_DLG_BOX_1 1 
+#define CLOSE_DLG_BOX_2 2
 #define FILE_MENU_EXIT 13
+#define NEW_DIALOG_BOX_1 112
+#define NEW_DIALOG_BOX_2 113
+#define SUBMIT_INFORMATION 4
 
 // Functions
 void AddMenu(HWND);
 void AddControls(HWND);
 void LoadImages(HWND);
+void RegisterDialogClass(HINSTANCE);
 
-void Handle_WM_COMMAND(WPARAM, HWND);
-void CreateBox(LPCSTR);
+// Hepler Functions
+void DisplayDialog1(HWND);
+void DisplayDialog2(HWND);
+void Handle_Window_WM_COMMAND(WPARAM, HWND);
+void Handle_Dialog_WM_COMMAND(WPARAM, HWND);
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+LRESULT CALLBACK DialogProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 
 // Globals
 HMENU hMenu;										// Handle for Menu
-HWND hEditName, hEditAge, hEditOutput, hFrame;		// Handle for Text Window
+HWND hParentWnd, hEditName, hEditAge, hEditOutput, hFrame;		// Handle for Text Window
 HBITMAP hFrameImage, hFolderImager;					// Handle for Image
 
 ////////////////////////////////////////////////////// Main Function /////////////////////////////////////////////////////////////////
@@ -32,7 +41,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR args, int nCm
 	if (!RegisterClassW(&wc))
 		return -1;
 
-	CreateWindowW(L"My Window Class", L"Practice Proj", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 975, 175, 500, 500, NULL, NULL, NULL, NULL);
+	RegisterDialogClass(hInstance);
+		
+	hParentWnd = CreateWindowW(L"My Window Class", L"Practice Proj", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 975, 175, 500, 500, NULL, NULL, NULL, NULL);
 
 	MSG msg = { 0 };
 
@@ -54,15 +65,17 @@ void AddMenu(HWND hwnd)
 	HMENU popoutView = CreateMenu();
 	HMENU popoutWindow = CreateMenu();
 	HMENU popoutHelp = CreateMenu();
-	HMENU subMenu = CreateMenu();
+	HMENU subMenuFile = CreateMenu();
+	HMENU subMenuDialog = CreateMenu();
+
 
 	AppendMenu(hMenu, MF_POPUP, (UINT_PTR)popoutFile, "File");				// Layer One 
 	AppendMenu(hMenu, MF_POPUP, (UINT_PTR)popoutView, "View");
 	AppendMenu(hMenu, MF_POPUP, (UINT_PTR)popoutWindow, "Window");
 	AppendMenu(hMenu, MF_POPUP, (UINT_PTR)popoutHelp, "Help");
 
-	AppendMenu(popoutFile, MF_STRING, 11, "New File");
-	AppendMenu(popoutFile, MF_POPUP, (UINT_PTR)subMenu, "Save File");		// Layer Two
+	AppendMenu(popoutFile, MF_POPUP, (UINT_PTR)subMenuDialog, "New File");
+	AppendMenu(popoutFile, MF_POPUP, (UINT_PTR)subMenuFile, "Save File");		// Layer Two
 	AppendMenu(popoutFile, MF_SEPARATOR, NULL, NULL);
 	AppendMenu(popoutFile, MF_STRING, FILE_MENU_EXIT, "Exit");
 
@@ -79,8 +92,13 @@ void AddMenu(HWND hwnd)
 	AppendMenu(popoutHelp, MF_STRING, 41, "Read Documentation");
 	AppendMenu(popoutHelp, MF_STRING, 42, "Go online");
 
-	AppendMenu(subMenu, MF_STRING, 121, "Save");							// Layer Three
-	AppendMenu(subMenu, MF_STRING, 122, "save As");
+	AppendMenu(subMenuFile, MF_STRING, 121, "Save");							// Layer Three
+	AppendMenu(subMenuFile, MF_STRING, 122, "save As");
+
+	AppendMenu(subMenuDialog, MF_STRING, 111, "File");			
+	AppendMenu(subMenuDialog, MF_STRING, NEW_DIALOG_BOX_1, "Dialog Box (Modeless)");
+	AppendMenu(subMenuDialog, MF_STRING, NEW_DIALOG_BOX_2, "Dialog Box (Mode)");
+
 
 	SetMenu(hwnd, hMenu);
 }
@@ -112,14 +130,51 @@ void LoadImages(HWND hwnd)
 	hFrameImage = (HBITMAP)LoadImageW(NULL, L"D:\\My_GitHub_Repos\\Windows_Programming\\WIN_32_API\\5_Working_with_Images(Bitmap)\\5_Working_with_Images(Bitmap)\\Frame.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 
-//////////////////////////////////////////////////////////// Helper Functions ////////////////////////////////////////////////////////
+///////////////////////////////////////////////////// Model and Modeless Dialogs //////////////////////////////////////////////////////
+
+void RegisterDialogClass(HINSTANCE hInstance)
+{
+	WNDCLASSW dialog1 = { 0 }, dialog2 = { 0 };
+
+	dialog1.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	dialog1.hCursor = LoadCursor(NULL, IDC_CROSS);
+	dialog1.hInstance = hInstance;
+	dialog1.lpszClassName = L"Dialog Class 1";
+	dialog1.lpfnWndProc = DialogProcedure;
+	RegisterClassW(&dialog1);
+
+	dialog2.hbrBackground = (HBRUSH)COLOR_WINDOW;
+	dialog2.hCursor = LoadCursor(NULL, IDC_CROSS);
+	dialog2.hInstance = hInstance;
+	dialog2.lpszClassName = L"Dialog Class 2";
+	dialog2.lpfnWndProc = DialogProcedure;
+	RegisterClassW(&dialog2);
+}
+
+void DisplayDialog1(HWND hwnd)
+{
+	HWND hDlg = CreateWindowW(L"Dialog Class 1", L"Dialog", WS_VISIBLE | WS_OVERLAPPEDWINDOW, 1525, 375, 300, 200, hwnd, NULL, NULL, NULL);
+	CreateWindowW(L"Static", L"Mode Less Diaglog Box", WS_VISIBLE | WS_CHILD | SS_CENTER, 0, 20, 300, 25, hDlg, NULL, NULL, NULL);
+	CreateWindowW(L"Button", L"Close", WS_VISIBLE | WS_CHILD | SS_CENTER, 125, 60, 50, 25, hDlg, (HMENU)CLOSE_DLG_BOX_1, NULL, NULL);
+}
+
+void DisplayDialog2(HWND hwnd)
+{
+	EnableWindow(hwnd, false);
+	HWND hDlg = CreateWindowW(L"Dialog Class 2", L"Dialog", WS_VISIBLE | WS_OVERLAPPEDWINDOW, 1525, 375, 300, 200, hwnd, NULL, NULL, NULL);
+	CreateWindowW(L"Static", L"Mode Diaglog Box", WS_VISIBLE | WS_CHILD | SS_CENTER, 0, 20, 300, 25, hDlg, NULL, NULL, NULL);
+	CreateWindowW(L"Button", L"Close", WS_VISIBLE | WS_CHILD | SS_CENTER, 125, 60, 50, 25, hDlg, (HMENU)CLOSE_DLG_BOX_2, NULL, NULL);
+	//EnableWindow(hwnd, true);
+}
+
+///////////////////////////////////////////////////// Helper Functions ///////////////////////////////////////////////////////////////
 
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
 	switch (msg)
 	{
 	case WM_COMMAND:	// will be passed to window proc for every commnad givent by IP devices. 
-		Handle_WM_COMMAND(wp, hwnd);
+		Handle_Window_WM_COMMAND(wp, hwnd);
 		break;
 
 	case WM_CREATE:
@@ -137,7 +192,26 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	}
 }
 
-void Handle_WM_COMMAND(WPARAM wp, HWND hwnd)
+LRESULT CALLBACK DialogProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) 
+{
+	switch (msg)
+	{
+	case WM_CLOSE:
+		EnableWindow(hParentWnd, true);
+		DestroyWindow(hwnd);
+		break;
+
+	case WM_COMMAND:
+		Handle_Dialog_WM_COMMAND(wp, hwnd);
+		break;
+
+	default:
+		return DefWindowProcW(hwnd,msg,wp,lp);
+		break;
+	}
+}
+
+void Handle_Window_WM_COMMAND(WPARAM wp, HWND hwnd)
 {
 	MessageBeep(MB_OK); // To create Sound 
 
@@ -147,8 +221,16 @@ void Handle_WM_COMMAND(WPARAM wp, HWND hwnd)
 	switch (wp)
 	{
 	case FILE_MENU_EXIT:
-	  retVal = MessageBoxW(hwnd,L"Warning", L"Are You Sure you want to exit ?",MB_YESNO | MB_ICONQUESTION);
+		retVal = MessageBoxW(hwnd, L"Warning", L"Are You Sure you want to exit ?", MB_YESNO | MB_ICONQUESTION);
 		if (retVal == IDYES) { DestroyWindow(hwnd); }
+		break;
+
+	case NEW_DIALOG_BOX_1:
+		DisplayDialog1(hwnd);
+		break;
+
+	case NEW_DIALOG_BOX_2:
+		DisplayDialog2(hwnd);
 		break;
 
 	case SUBMIT_INFORMATION:
@@ -160,7 +242,7 @@ void Handle_WM_COMMAND(WPARAM wp, HWND hwnd)
 		GetWindowText(hEditName, TextName, 100);
 		GetWindowText(hEditAge, TextAge, 5);
 
-		if (_strcmpi(TextName, "")==0 || _strcmpi(TextAge, "")==0)
+		if (_strcmpi(TextName, "") == 0 || _strcmpi(TextAge, "") == 0)
 		{
 			retVal = MessageBoxW(hwnd, L"Please Enter Correct Information .... !", L"Error", MB_ABORTRETRYIGNORE | MB_ICONERROR);
 			if (retVal == IDABORT) { DestroyWindow(hwnd); }
@@ -180,7 +262,7 @@ void Handle_WM_COMMAND(WPARAM wp, HWND hwnd)
 			strcat_s(TextOutput, TextAge);
 			strcat_s(TextOutput, " years Old. ");
 		}
-		
+
 
 		SetWindowText(hEditOutput, TextOutput);
 		break;
@@ -188,18 +270,27 @@ void Handle_WM_COMMAND(WPARAM wp, HWND hwnd)
 	default:
 		break;
 	}
-
-	//CreateBox(item);
 }
 
-void CreateBox(LPCSTR text)
+void Handle_Dialog_WM_COMMAND(WPARAM wp, HWND hwnd)
 {
-	LPCSTR caption = "Pressed Item";
-	MessageBox(NULL, text, caption, MB_OK);
+	switch (wp)
+	{
+	case CLOSE_DLG_BOX_1:
+		DestroyWindow(hwnd);
+		break;
+
+	case CLOSE_DLG_BOX_2:
+		EnableWindow(hParentWnd, true);
+		DestroyWindow(hwnd);
+		break;
+
+	default:
+		break;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 // Types of message boses
 // MB_ABORTRETRYIGNORE : 3 - 1.ABORT 2.RETRY 3.IGNORE 
