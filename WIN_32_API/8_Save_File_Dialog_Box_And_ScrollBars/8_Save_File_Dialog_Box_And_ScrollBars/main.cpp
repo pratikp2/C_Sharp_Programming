@@ -1,14 +1,16 @@
 #include <Windows.h>
 #include <iostream>
-#include <stdio.h>
+//#include <stdio.h>
 
 #define OPEN_FILE 1
+#define SAVE_FILE 2
 
 // Functions
 void AddControls(HWND);
 void OpenFile(HWND);
+void SaveFile(HWND);
 void DisplayFile(char*);
-
+void WriteFile(char*);
 
 // Hepler Functions
 void Handle_Window_WM_COMMAND(WPARAM, HWND);
@@ -51,7 +53,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR args, int nCm
 void AddControls(HWND hwnd)
 {
 	CreateWindowW(L"Button", L" Open File ", WS_VISIBLE | WS_CHILD | SS_CENTER, 20, 20, 150, 30, hwnd, (HMENU)OPEN_FILE, NULL, NULL);
-	hEdit = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | ES_AUTOHSCROLL | ES_AUTOVSCROLL | WS_BORDER | ES_MULTILINE, 20, 80, 450, 350, hwnd, NULL, NULL, NULL);
+	CreateWindowW(L"Button", L" Save File ", WS_VISIBLE | WS_CHILD | SS_CENTER, 250, 20, 150, 30, hwnd, (HMENU)SAVE_FILE, NULL, NULL);
+
+	hEdit = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_HSCROLL | WS_VSCROLL | WS_BORDER | ES_MULTILINE, 20, 80, 450, 350, hwnd, NULL, NULL, NULL);
 }
 
 ///////////////////////////////////////////////////// Creating Open File Dialog /////////////////////////////////////////////////////
@@ -59,7 +63,7 @@ void AddControls(HWND hwnd)
 void OpenFile(HWND hwnd)
 {
 	OPENFILENAME ofn;
-	ZeroMemory(&ofn,sizeof(OPENFILENAME));
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
 
 	char fileName[100];
 
@@ -75,17 +79,36 @@ void OpenFile(HWND hwnd)
 	DisplayFile(ofn.lpstrFile);
 }
 
+void SaveFile(HWND hwnd)
+{
+	OPENFILENAME ofn;
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
+
+	char fileName[100];
+
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = hwnd;
+	ofn.lpstrFile = fileName;
+	ofn.lpstrFile[0] = '\0';		
+	ofn.nMaxFile = 100;
+	ofn.lpstrFilter = "All Files\0*.*\0Source Files\0*.CPP\0Text Files\0*.TXT\0";
+	ofn.nFilterIndex = 1;
+
+	GetSaveFileName(&ofn);			
+	WriteFile(ofn.lpstrFile);
+}
+
 ///////////////////////////////////////////////////// Helper Functions ///////////////////////////////////////////////////////////////
 
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
 	switch (msg)
 	{
-	case WM_CREATE :
+	case WM_CREATE:
 		AddControls(hwnd);
 		break;
 
-	case WM_COMMAND:	
+	case WM_COMMAND:
 		Handle_Window_WM_COMMAND(wp, hwnd);
 		break;
 
@@ -103,8 +126,11 @@ void Handle_Window_WM_COMMAND(WPARAM wp, HWND hwnd)
 	switch (wp)
 	{
 	case OPEN_FILE:
-		 OpenFile(hwnd);
+		OpenFile(hwnd);
+		break;
 
+	case SAVE_FILE:
+		//SaveFile(hwnd);
 		break;
 
 	default:
@@ -115,8 +141,8 @@ void Handle_Window_WM_COMMAND(WPARAM wp, HWND hwnd)
 void DisplayFile(char * path)
 {
 	FILE * file;						//	Assign a file pointer
-	file = fopen(path,"rb");			//  Assign the path of the file to the file pointer and give read permission
-	fseek(file,0,SEEK_END);				//	Make file pointer point to the end of the file, to determine the size of the file
+	file = fopen(path, "rb");			//  Assign the path of the file to the file pointer and give read permission
+	fseek(file, 0, SEEK_END);			//	Make file pointer point to the end of the file, to determine the size of the file
 	int _size = ftell(file);			//	Store the size of the file
 	rewind(file);						//	Reset the file pointer to the initial position of the file
 	char * data = new char[_size + 1];	//	Add one more charecter for null termination.
@@ -124,9 +150,24 @@ void DisplayFile(char * path)
 	data[_size] = '\0';					//	Make last character of the data a null termination 
 
 	SetWindowText(hEdit, data);
+	fclose(file);
 
 	delete[] data;
 	data = NULL;
+}
+
+void WriteFile(char * path)
+{
+	FILE * file;						
+	file = fopen(path, "w");	
+
+	int _size = GetWindowTextLength(hEdit);
+	char * data = new char[_size + 1];
+	GetWindowText(hEdit, data, _size + 1);
+
+	fwrite(data, _size + 1, 1, file);
+
+	fclose(file);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
