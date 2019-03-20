@@ -1,7 +1,12 @@
+# include <iostream>
+# include <string>
+# include <cstdlib>
 # include <exdisp.h>
 # include <cassert>
+# include <fstream>
+# include <Windows.h>
 
-int main(void)
+int main()
 {
 	HRESULT hret;
 	hret = CoInitialize(NULL);
@@ -15,45 +20,55 @@ int main(void)
 	hret = CoCreateInstance(clsid, NULL, CLSCTX_ALL, IID_IUnknown, reinterpret_cast<void**>(&p));
 	assert(SUCCEEDED(hret));
 
-	IDispatch *q;           // Get IDispatch Interface from IUnknown
-	hret = p->QueryInterface(IID_IDispatch, reinterpret_cast<void**>(&q));
+	IDispatch * ptrDispatch;           // Get IDispatch Interface from IUnknown
+	hret = p->QueryInterface(IID_IDispatch, reinterpret_cast<void**>(&ptrDispatch));
 	assert(SUCCEEDED(hret));
 
-	IWebBrowser2 *r;        // Get IWebBrowser2 Interface from IDispatch
-	hret = q->QueryInterface(IID_IWebBrowser2, reinterpret_cast<void**>(&r));
+	IWebBrowser2 * ptrWebBrsr;        // Get IWebBrowser2 Interface from IDispatch
+	hret = ptrDispatch->QueryInterface(IID_IWebBrowser2, reinterpret_cast<void**>(&ptrWebBrsr));
 	assert(SUCCEEDED(hret));
 
 	IUnknown *s;            // Get IUnknown from IWebBrowser2
-	hret = r->QueryInterface(IID_IUnknown, reinterpret_cast<void**>(&s));
+	hret = ptrWebBrsr->QueryInterface(IID_IUnknown, reinterpret_cast<void**>(&s));
 	assert(SUCCEEDED(hret));
 
-	///// Transitive //////////////////////////
+	///// Transitive ///////////////////////
 	assert(p == s);
 	////////////////////////////////////////
 
-	VARIANT vEmpty;
+	VARIANT vEmpty, vFlags;
 	VariantInit(&vEmpty);
-	VARIANT vFlags;
 	V_VT(&vFlags) = VT_I4;
 	V_I4(&vFlags) = navOpenInNewTab;
 
-	BSTR bstrURL1 = SysAllocString(L"http://www.google.com");
-	BSTR bstrURL2 = SysAllocString(L"http://www.youtube.com");
+	{
+		std::wstring TEMP;
+		std::wifstream SiteList("Site_List.txt");		// To Work Windows stream Files for windows strings
 
-	r->Navigate(bstrURL1, &vFlags, &vEmpty, &vEmpty, &vEmpty);
-	r->Navigate(bstrURL2, &vFlags, &vEmpty, &vEmpty, &vEmpty);
+		//SiteList.open("", std::ios::in);
+		if (SiteList)
+		{
+			while (std::getline(SiteList, TEMP))
+			{
+				const WCHAR * StrConvert = TEMP.c_str();
+				std::wcout << TEMP << std::endl;
+				BSTR bstrURL = SysAllocString(StrConvert);
+				ptrWebBrsr->Navigate(bstrURL, &vFlags, &vEmpty, &vEmpty, &vEmpty);
+				SysFreeString(bstrURL);
+			}
+		}
+		SiteList.close();
+	}
 
-	r->Quit();
-
-	SysFreeString(bstrURL1);
-	SysFreeString(bstrURL2);
-
+	ptrWebBrsr->Quit();
 
 	p->Release();
-	q->Release();
-	r->Release();
 	s->Release();
+	ptrWebBrsr->Release();
+	ptrDispatch->Release();
 
 	CoUninitialize();
+	system("pause");
+
 	return 0;
 }
