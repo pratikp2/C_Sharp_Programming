@@ -14,6 +14,7 @@ int main()
 
 	CLSID clsid;            // Get IE CLSID
 	hret = CLSIDFromProgID(L"InternetExplorer.Application", &clsid);
+
 	assert(SUCCEEDED(hret));
 
 	IUnknown *p;            // Get IUnknown Interface
@@ -41,6 +42,7 @@ int main()
 	V_VT(&vFlags) = VT_I4;
 	V_I4(&vFlags) = navOpenInNewTab;
 
+
 	{
 		std::wstring TEMP;
 		std::wifstream SiteList("Site_List.txt");		// To Work Windows stream Files for windows strings
@@ -57,7 +59,7 @@ int main()
 				SysFreeString(bstrURL);
 			}
 		}
-		SiteList.close();
+		//SiteList.close();
 	}
 
 	ptrWebBrsr->Quit();

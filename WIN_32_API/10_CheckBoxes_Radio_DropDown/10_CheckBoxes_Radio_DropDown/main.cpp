@@ -1,16 +1,16 @@
 #include <Windows.h>
 #include <iostream>
-//#include <stdio.h>
 
 #define OPEN_FILE 1
 #define SAVE_FILE 2
+#define BOX_CHECKED 3
 
 // Functions
 void AddControls(HWND);
-void OpenFile(HWND);
-void SaveFile(HWND);
-void DisplayFile(char*);
-void WriteFile(char*);
+//void OpenFile(HWND);
+//void SaveFile(HWND);
+//void DisplayFile(char*);
+//void WriteFile(char*);
 
 // Hepler Functions
 void Handle_Window_WM_COMMAND(WPARAM, HWND);
@@ -20,7 +20,6 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 // Globals
 HWND hMainWindow, hEdit;		// Handle for Text Window
 
-////////////////////////////////////////////////////// Main Function /////////////////////////////////////////////////////////////////
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR args, int nCmdShow)
 {
@@ -35,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR args, int nCm
 	if (!RegisterClassW(&wc))
 		return -1;
 
-	hMainWindow = CreateWindowW(L"My Window Class", L"Practice Proj", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 975, 175, 500, 500, NULL, NULL, NULL, NULL);
+	hMainWindow = CreateWindowW(L"My Window Class", L"Practice Proj", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 975, 175, 600, 800, NULL, NULL, NULL, NULL);
 
 	MSG msg = { 0 };
 
@@ -52,15 +51,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR args, int nCm
 
 void AddControls(HWND hwnd)
 {
-	CreateWindowW(L"Button", L" Open File ", WS_VISIBLE | WS_CHILD | SS_CENTER, 20, 20, 150, 30, hwnd, (HMENU)OPEN_FILE, NULL, NULL);
-	CreateWindowW(L"Button", L" Save File ", WS_VISIBLE | WS_CHILD | SS_CENTER, 250, 20, 150, 30, hwnd, (HMENU)SAVE_FILE, NULL, NULL);
+	//CreateWindowW(L"Button", L" Open File ", WS_VISIBLE | WS_CHILD | SS_CENTER, 20, 20, 150, 30, hwnd, (HMENU)OPEN_FILE, NULL, NULL);
+	//CreateWindowW(L"Button", L" Save File ", WS_VISIBLE | WS_CHILD | SS_CENTER, 250, 20, 150, 30, hwnd, (HMENU)SAVE_FILE, NULL, NULL);
 
-	hEdit = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_HSCROLL | WS_VSCROLL | WS_BORDER | ES_MULTILINE, 20, 80, 450, 350, hwnd, NULL, NULL, NULL);
+	CreateWindowW(L"Static", L" Please Enter User Details ", WS_VISIBLE | WS_CHILD | SS_CENTER, 100, 25, 300, 25, hwnd, NULL, NULL, NULL);
+
+	CreateWindowW(L"Static", L" Candidate's Name :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 31, 75, 140, 25, hwnd, NULL, NULL, NULL);
+	CreateWindowW(L"Edit", L" ", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_LEFT | ES_MULTILINE | ES_AUTOVSCROLL, 250, 75, 200, 25, hwnd, NULL, NULL, NULL);
+
+	CreateWindowW(L"Static", L" Candidate's Age :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 31, 125, 140, 25, hwnd, NULL, NULL, NULL);
+	CreateWindowW(L"Edit", L" ", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_LEFT | ES_MULTILINE | ES_AUTOVSCROLL, 250, 125, 50, 25, hwnd, NULL, NULL, NULL);
+
+	CreateWindowW(L"Static", L" Address :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 31, 175, 140, 25, hwnd, NULL, NULL, NULL);
+	CreateWindowW(L"Edit", L" ", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_LEFT | ES_MULTILINE | ES_AUTOVSCROLL, 250, 175, 200, 100, hwnd, NULL, NULL, NULL);
+
+	//CreateWindowEx(NULL, "BUTTON", "Check Box", BS_AUTOCHECKBOX | WS_VISIBLE | WS_CHILD, 20, 20, 100, 30, hwnd, (HMENU)BOX_CHECKED, NULL, NULL);
+	//hEdit = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_HSCROLL | WS_VSCROLL | WS_BORDER | ES_MULTILINE, 20, 80, 450, 350, hwnd, NULL, NULL, NULL);
 }
 
 ///////////////////////////////////////////////////// Creating Open File Dialog /////////////////////////////////////////////////////
 
-void OpenFile(HWND hwnd)
+/*void OpenFile(HWND hwnd)
 {
 	OPENFILENAME ofn;
 	ZeroMemory(&ofn, sizeof(OPENFILENAME));
@@ -89,15 +100,15 @@ void SaveFile(HWND hwnd)
 	ofn.lStructSize = sizeof(OPENFILENAME);
 	ofn.hwndOwner = hwnd;
 	ofn.lpstrFile = fileName;
-	ofn.lpstrFile[0] = '\0';		
+	ofn.lpstrFile[0] = '\0';
 	ofn.nMaxFile = 100;
 	ofn.lpstrFilter = "All Files\0*.*\0Source Files\0*.CPP\0Text Files\0*.TXT\0";
 	ofn.nFilterIndex = 1;
 
-	GetSaveFileName(&ofn);			
+	GetSaveFileName(&ofn);
 	WriteFile(ofn.lpstrFile);
 }
-
+*/
 ///////////////////////////////////////////////////// Helper Functions ///////////////////////////////////////////////////////////////
 
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -126,11 +137,15 @@ void Handle_Window_WM_COMMAND(WPARAM wp, HWND hwnd)
 	switch (wp)
 	{
 	case OPEN_FILE:
-		OpenFile(hwnd);
+		//OpenFile(hwnd);
 		break;
 
 	case SAVE_FILE:
 		//SaveFile(hwnd);
+		break;
+
+	case BOX_CHECKED:
+		CheckDlgButton(hwnd, 1, BST_CHECKED);
 		break;
 
 	default:
@@ -138,7 +153,7 @@ void Handle_Window_WM_COMMAND(WPARAM wp, HWND hwnd)
 	}
 }
 
-void DisplayFile(char * path)
+/*void DisplayFile(char * path)
 {
 	FILE * file;						//	Assign a file pointer
 	file = fopen(path, "rb");			//  Assign the path of the file to the file pointer and give read permission
@@ -158,8 +173,8 @@ void DisplayFile(char * path)
 
 void WriteFile(char * path)
 {
-	FILE * file;						
-	file = fopen(path, "w");	
+	FILE * file;
+	file = fopen(path, "w");
 
 	int _size = GetWindowTextLength(hEdit);
 	char * data = new char[_size + 1];
@@ -169,6 +184,7 @@ void WriteFile(char * path)
 
 	fclose(file);
 }
+*/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
