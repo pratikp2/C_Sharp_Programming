@@ -20,6 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR args, int nCm
 	wc.hInstance = hInstance;
 	wc.lpszClassName = L"My Window Class";
 	wc.lpfnWndProc = WindowProcedure;
+	HFONT hFont;
 
 	if (!RegisterClassW(&wc))
 		return -1;
@@ -131,7 +132,23 @@ void CreateBox(LPCSTR text)
 
 void AddControls(HWND hwnd)
 {
-	CreateWindowW(L"Static", L"Enter Text Here :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 50,100,125,25,hwnd,NULL,NULL,NULL);
+	HWND hello =  CreateWindowW(L"Static", L"Enter Text Here :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 50,100,125,25,hwnd,NULL,NULL,NULL);
 	hEdit = CreateWindowW(L"Edit", L"...", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_LEFT | ES_MULTILINE | ES_AUTOVSCROLL, 250, 100, 125, 25, hwnd, NULL, NULL, NULL);
+
+	HDC hdc = GetDC(NULL);
+	long lfHeight = -MulDiv(12, GetDeviceCaps(hdc, LOGPIXELSY), 72);
+	HFONT hf = CreateFont(lfHeight, 0, 0, 0, 0, TRUE, 0, 0, 0, 0, 0, 0, 0,"Ariel");
+	SendMessage(hello, WM_SETFONT, WPARAM(hf), TRUE);
+
+	hello = CreateWindowW(L"Static", L"Enter Text Here :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 50, 150, 125, 25, hwnd, NULL, NULL, NULL);
+	hEdit = CreateWindowW(L"Edit", L"...", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_LEFT | ES_MULTILINE | ES_AUTOVSCROLL, 250, 150, 125, 25, hwnd, NULL, NULL, NULL);
+
+	HDC hdc1 = GetDC(NULL);
+	long lfHeight1 = -MulDiv(12, GetDeviceCaps(hdc1, LOGPIXELSY), 72);
+	HFONT hf1 = CreateFont(lfHeight1, 0, 0, 0, 0, TRUE, 0, 0, 0, 0, 0, 0, 0, "Segoe UI");
+	SendMessage(hello, WM_SETFONT, WPARAM(hf1), TRUE);
+
+	hello = CreateWindowW(L"Static", L"Enter Text Here :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 50, 200, 125, 25, hwnd, NULL, NULL, NULL);
+	hEdit = CreateWindowW(L"Edit", L"...", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_LEFT | ES_MULTILINE | ES_AUTOVSCROLL, 250, 200, 125, 25, hwnd, NULL, NULL, NULL);
 }
 
