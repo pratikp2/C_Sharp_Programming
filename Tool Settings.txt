@@ -1,5 +1,0 @@
-1. disable CodeLens "0 references | 0 changes | 0 authors , 0 changes"
-
-Tools -> Options -> Text Editor -> All Languages -> CodeLens.
-Uncheck “Enable CodeLens”
-#########################################################################################################################################################

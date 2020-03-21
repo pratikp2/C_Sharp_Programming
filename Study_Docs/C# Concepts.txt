@@ -1,0 +1,40 @@
+##########################################################################################################################################################
+
+## Web Application.
+An application that the users access over the internet is called a web application. Generally, any software that is accessed through a client web browser could be called a web application.
+
+## Web Service.
+W3C (World Wide Web Consortium) describes web service as a system of software allowing different machines to interact with each other through network. Web services achieve this task with the help of XML, SOAP, WSDL and UDDI open standards.
+
+The very basic difference between a web application and web application service is Web application is meant to be used by a user, i.e. it is designed keeping a user in mind, considering things like how much attractive does the application is to a user.
+However, web service is meant to be used by another application or software it is not designed to be consumed by a user being, instead it is designed to be consumed by another software or application to make that application functionally more useful
+
+##########################################################################################################################################################
+
+## Why to use namespaces in C#.
+
+Namespaces are used to provide a "named space" in which your application resides. They're used especially to provide the C# compiler a context for all the named information in your program, such as variable names. Without namespaces, for example, you wouldn't be able to make a class named Console, as .NET already uses one in its System namespace. The purpose of namespaces is to solve this problem, and release thousands of names defined in the .NET Framework for your applications to use, along with making it so your application doesn't occupy names for other applications, if your application is intended to be used in conjunction with another. So namespaces exist to resolve ambiguities a compiler wouldn't otherwise be able to do.
+
+##########################################################################################################################################################
+
+Character Constants
+Character literals are enclosed in single quotes. For example, 'x' and can be stored in a simple variable of char type. A character literal can be a plain character (such as 'x'), an escape sequence (such as '\t'), or a universal character (such as '\u02C0').There are certain characters in C# when they are preceded by a backslash. They have special meaning and they are used to represent like newline (\n) or tab (\t). Here, is a list of some of such escape sequence codes −
+
+Escape sequence		Meaning
+
+	\\				\ character
+	\'				' character
+	\"				" character
+	\?				? character
+	\a				Alert or bell
+	\b				Backspace
+	\f				Form feed
+	\n				Newline
+	\r				Carriage return
+	\t				Horizontal tab
+	\v				Vertical tab
+	\xhh . . .		Hexadecimal number of one or more digits
+
+##########################################################################################################################################################
+
+

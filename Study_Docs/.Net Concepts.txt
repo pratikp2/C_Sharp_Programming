@@ -6,6 +6,28 @@
 -- Can be used to developed both web based and form based applications.
 -- Supports basic languages like Visual basic and C#.
 
+-- It helps to write:  
+1. Windows applications
+2. Web applications
+3. Web services
+
+Following are some of the components of the .Net framework -
+
+1. Common Language Runtime (CLR)
+2. The .Net Framework Class Library
+3. Common Language Specification
+4. Common Type System
+5. Metadata and Assemblies
+6. Windows Forms
+7. ASP.Net and ASP.Net AJAX
+8. ADO.Net
+9. Windows Workflow Foundation (WF)
+10.Windows Presentation Foundation
+11.Windows Communication Foundation (WCF)
+12.LINQ
+
+##############################################################################################################################################################
+
 .Net Components.
 
 1> CLR (Common Language Runtime)
