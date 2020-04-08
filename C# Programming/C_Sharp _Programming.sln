@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29911.84
+VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data Types", "Data Types\Data Types.csproj", "{489EC6A1-F8D1-484A-B94D-CF3682C419DD}"
 EndProject
@@ -13,11 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Object Oriented", "Object O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Access Specifiers", "Access Specifiers\Access Specifiers.csproj", "{492C96CE-0BE2-4F67-BB0D-925DE2BCDC73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Array", "Array\Array.csproj", "{9AA3CBE9-7F24-4D17-AA68-A5D3B1AE0326}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Array and List", "Array\Array and List.csproj", "{9AA3CBE9-7F24-4D17-AA68-A5D3B1AE0326}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "String", "String\String.csproj", "{C573F923-359D-48A1-A318-A518F47E9DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "String", "String\String.csproj", "{C573F923-359D-48A1-A318-A518F47E9DEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime Polymorphism", "Runtime Polymorphism\Runtime Polymorphism.csproj", "{E8F4AA38-E969-46EE-9F91-B9BE4AD9C0D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Runtime Polymorphism", "Runtime Polymorphism\Runtime Polymorphism.csproj", "{E8F4AA38-E969-46EE-9F91-B9BE4AD9C0D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pass Value and Reference", "Pass Value and Reference\Pass Value and Reference.csproj", "{90D84B56-8D3A-43A3-92C0-7EFF1B250053}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exception Handeling", "Exception Handeling\Exception Handeling.csproj", "{4FC39111-D637-4ABA-95C8-D9AAC50B5FFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Properties", "Properties\Properties.csproj", "{59E5BA67-C947-4276-A78B-85676B644161}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +55,18 @@ Global
 		{E8F4AA38-E969-46EE-9F91-B9BE4AD9C0D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8F4AA38-E969-46EE-9F91-B9BE4AD9C0D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8F4AA38-E969-46EE-9F91-B9BE4AD9C0D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D84B56-8D3A-43A3-92C0-7EFF1B250053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D84B56-8D3A-43A3-92C0-7EFF1B250053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D84B56-8D3A-43A3-92C0-7EFF1B250053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D84B56-8D3A-43A3-92C0-7EFF1B250053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC39111-D637-4ABA-95C8-D9AAC50B5FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC39111-D637-4ABA-95C8-D9AAC50B5FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC39111-D637-4ABA-95C8-D9AAC50B5FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC39111-D637-4ABA-95C8-D9AAC50B5FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E5BA67-C947-4276-A78B-85676B644161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E5BA67-C947-4276-A78B-85676B644161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E5BA67-C947-4276-A78B-85676B644161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E5BA67-C947-4276-A78B-85676B644161}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +78,9 @@ Global
 		{9AA3CBE9-7F24-4D17-AA68-A5D3B1AE0326} = {09D73EB2-C9DD-4FBA-B2D2-EECA8266793E}
 		{C573F923-359D-48A1-A318-A518F47E9DEE} = {09D73EB2-C9DD-4FBA-B2D2-EECA8266793E}
 		{E8F4AA38-E969-46EE-9F91-B9BE4AD9C0D0} = {8E4621DE-9830-4CDC-9389-632736D21049}
+		{90D84B56-8D3A-43A3-92C0-7EFF1B250053} = {09D73EB2-C9DD-4FBA-B2D2-EECA8266793E}
+		{4FC39111-D637-4ABA-95C8-D9AAC50B5FFF} = {8E4621DE-9830-4CDC-9389-632736D21049}
+		{59E5BA67-C947-4276-A78B-85676B644161} = {8E4621DE-9830-4CDC-9389-632736D21049}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A6E4CA5-C64B-46E0-9352-0993DD47501F}

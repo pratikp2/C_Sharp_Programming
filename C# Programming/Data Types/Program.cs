@@ -28,6 +28,10 @@ namespace Data_Types
             Console.WriteLine("Size of decimal  :   {0}", sizeof(decimal));     //  (-7.9 x 10^28 to 7.9 x 10^28) / 10^0 to 28
             Console.WriteLine("Size of bool     :   {0}", sizeof(bool));        //  True or False
 
+            // Reference Type 
+            // A reference type is created when var is creates with new keyword
+            // its a Reference variable holding address of the newly instantiated variable.similar to pointer.
+            var array1 = new int[5];
 
             // Object Type
             // alias for System.Object class

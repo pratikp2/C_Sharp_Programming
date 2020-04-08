@@ -1,20 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Array
+namespace Array_List
 {
     class Program
     {
         static void Main()
         {
             // 1.Array 
-            int[] n = new int[10];
-            int i, j;
+            var array1 = new int[5];            // One Dimentional 
+            var array2 = new int[5, 2];         // Two Dimentional 
+            var array3 = new int[5, 2, 3];      // Three Dimentional
 
-            for (i = 0; i < 10; i++)
-                n[i] = i * 100;
-            
-            for (j = 0; j < 10; j++)
-                Console.WriteLine("Element[{0}] = {1}", j, n[j]);
+            var array = new[] { 1, 2, 3, 4, 5 };
 
 
             // 2.Array Class (System.Array)
@@ -46,6 +44,16 @@ namespace Array
             Console.WriteLine("myArray[{0}{1}] = {2}", 0,1, myArray2.GetValue(0,1));
             Console.WriteLine("myArray[{0}{1}] = {2}", 1,0, myArray2.GetValue(1,0));
             Console.WriteLine("myArray[{0}{1}] = {2}", 1,1, myArray2.GetValue(1,1));
+
+
+            // List 
+            List<int> nodes = new List<int>() { 1,2,3,4,5,6,7,8};
+            nodes.Add(9);
+
+            foreach (var num in nodes)
+                Console.Write("{0} ",num);
+            Console.WriteLine();
+            Console.WriteLine(nodes.Count);
 
             Console.ReadLine();
         }
