@@ -6,8 +6,8 @@ namespace Runtime_Polymorphism
 {
     public interface Parent1
     {
-        public void Method1();
-        public void Method2();
+        void Method1();     // No ned to mention Access specifier as all the methods will bu public.
+        void Method2();
     }
 
     public abstract class Parent2
