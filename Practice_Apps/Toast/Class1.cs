@@ -26,8 +26,8 @@ namespace Toast
             
 
             // run command(s)
-            ps.AddScript(@"D:\PSScripts\MyScript.ps1", true).Invoke();
-            ps.AddScript()
+            //ps.AddScript(@"D:\PSScripts\MyScript.ps1", true).Invoke();
+            //ps.AddScript()
             //Console.WriteLine("Date: {0}", ps.Invoke().First());
 
             Console.WriteLine(SystemInformation.PowerStatus.BatteryLifePercent.ToString());
