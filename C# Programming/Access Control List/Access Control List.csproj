@@ -37,7 +37,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AccessControlList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

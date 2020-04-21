@@ -8,8 +8,7 @@ namespace Test
         static void Main(string[] args)
         {
             try
-            {
-      
+            {   
                 FileInfo info = new FileInfo("D:/Practice/Git_Repos/Windows_Programming/Utils/Sample_Text");
                 Console.WriteLine("Access Credentials : {0}", (System.Security.Principal.WindowsIdentity.GetCurrent()).Name);
 

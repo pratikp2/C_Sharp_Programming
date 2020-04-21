@@ -45,8 +45,7 @@ namespace Test
         }
 
         static private void GetAceInformation(FileSystemAccessRule ace)
-        {
-            
+        {   
             Console.WriteLine("Account      : {0}", ace.IdentityReference.Value);
             Console.WriteLine("Type         : {0}", ace.AccessControlType);
             Console.WriteLine("Rights       : {0}", ace.FileSystemRights);
@@ -94,7 +93,7 @@ namespace Test
             SecureString ssPwd = new SecureString();
         
             proc.StartInfo.UseShellExecute = false;
-            proc.StartInfo.FileName = "D:/Practice/Git_Repos/Windows_Programming/Practice_Apps/Test Dummy/bin/Debug/Test_Dummy";
+            proc.StartInfo.FileName = "D:/Practice/Git_Repos/Windows_Programming/C# Programming/Dummy Executable/bin/Debug/Test_Dummy";
             proc.StartInfo.Domain = string.IsNullOrEmpty(Environment.UserDomainName) ? "." : Environment.UserDomainName;
             proc.StartInfo.UserName = accLogin;
 
@@ -104,8 +103,6 @@ namespace Test
             accPassword = "";
 
             proc.StartInfo.Password = ssPwd;
-            RemoveFileSecurity(account5, FileSystemRights.ReadData, AccessControlType.Deny);
-            CheckDirectorySecurity();
             proc.Start();
         }
 
@@ -113,14 +110,10 @@ namespace Test
         {
             try
             {
-                //Console.WriteLine("Writing to File");
-                //while (true)
-                //File.WriteAllText("D:/Practice/Git_Repos/Windows_Programming/Utils/Sample_Text", $"Hello World : {DateTime.Now}");
-
                 FileInfo info = new FileInfo("D:/Practice/Git_Repos/Windows_Programming/Utils/Sample_Text");
                 using (FileStream fileStream = info.OpenRead())
                 using (StreamReader fileReader = new StreamReader(fileStream))
-                    fileReader.ReadToEnd();               
+                    fileReader.ReadToEnd();              
             }
             catch (Exception ex)
             {
@@ -131,19 +124,19 @@ namespace Test
         static void Main(string[] args)
         {
             // Apply or Remove ACL to a Directory 
-            //AddDirectorySecurity(account1, FileSystemRights.ReadData, AccessControlType.Allow);
+            //AddDirectorySecurity(account1, FileSystemRights.ReadData, AccessControlType.Deny);
             //RemoveDirectorySecurity(account, FileSystemRights.ReadData, AccessControlType.Allow);
-
+            
             // Apply or Remove ACL to a File. 
-            AddFileSecurity(account5, FileSystemRights.ReadData, AccessControlType.Deny);
+            //AddFileSecurity(account5, FileSystemRights.ReadData, AccessControlType.Deny);
             //RemoveFileSecurity(account5, FileSystemRights.ReadData, AccessControlType.Allow);
 
             // Print Access Control List Entries
-            //CheckDirectorySecurity();
+            CheckDirectorySecurity();
             //CheckFileSecurity();
 
             //CalloftheWhile();
-            StartNewProcess("pppra","Voyager@1977");
+            //StartNewProcess("pppra","Voyager@1977");
             //SecurityUtilities.RunAs("BUILTIN/Administrators", "Voyager@1977");
 
             //Console.WriteLine(WindowsIdentity.GetCurrent().User);
