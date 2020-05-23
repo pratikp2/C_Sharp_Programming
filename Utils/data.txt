@@ -1,0 +1,1 @@
+DefaultInstall 132 C:/Program Files (x86)/HP/HP Touchpoint Analytics Client/Fusion Ring Deployment/hpanalyticscomp.inf
