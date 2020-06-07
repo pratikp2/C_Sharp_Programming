@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BE33B7CD-C4E0-474F-AB7A-776D150C9B5D}</ProjectGuid>
+    <ProjectGuid>{85239070-710C-45F1-86A6-35A653805F58}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Windows_Drivers</RootNamespace>
-    <AssemblyName>Windows Drivers</AssemblyName>
+    <RootNamespace>Embed_Files_in_Binary</RootNamespace>
+    <AssemblyName>Embed Files in Binary</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -39,9 +39,8 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <EmbeddedResource Include="File1.txt" />
+    <EmbeddedResource Include="File2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

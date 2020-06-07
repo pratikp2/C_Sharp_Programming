@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BE33B7CD-C4E0-474F-AB7A-776D150C9B5D}</ProjectGuid>
+    <ProjectGuid>{6AE61065-496D-469E-90C4-271A26607054}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Windows_Drivers</RootNamespace>
-    <AssemblyName>Windows Drivers</AssemblyName>
+    <RootNamespace>Manage_Pacakage_Installation</RootNamespace>
+    <AssemblyName>Manage Pacakage Installation</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -39,9 +39,14 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <EmbeddedResource Include="SamplLibs\SampleLib1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SamplLibs\SampleLib2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,1 @@
+New-BurntToastNotification -Text "Power cable plugged/Unplugged", 'Power source has changed' -AppLogo "D:\Practice\Git_Repos\C# Programming\Battery Indicator Toast Notification\index.jpg"

@@ -55,7 +55,7 @@ namespace Test
 
         public static void AddDirectorySecurity(string accLogin, FileSystemRights Rights, AccessControlType ControlType)
         {
-            DirectoryInfo dInfo = new DirectoryInfo(dirPath);
+            DirectoryInfo dInfo = new DirectoryInfo(@"D:\Practice\Git_Repos\C# Programming\Embed Files in Binary\LocationDestination");
             DirectorySecurity dSecurity = dInfo.GetAccessControl();
             //dSecurity.AddAccessRule(new FileSystemAccessRule(accLogin, Rights, ControlType)); - Non Recursive file Access permission
             dSecurity.AddAccessRule(new FileSystemAccessRule(accLogin, Rights,InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
@@ -124,7 +124,7 @@ namespace Test
         static void Main(string[] args)
         {
             // Apply or Remove ACL to a Directory 
-            //AddDirectorySecurity(account1, FileSystemRights.ReadData, AccessControlType.Deny);
+            AddDirectorySecurity(account1, FileSystemRights.FullControl, AccessControlType.Allow);
             //RemoveDirectorySecurity(account, FileSystemRights.ReadData, AccessControlType.Allow);
             
             // Apply or Remove ACL to a File. 
@@ -132,7 +132,7 @@ namespace Test
             //RemoveFileSecurity(account5, FileSystemRights.ReadData, AccessControlType.Allow);
 
             // Print Access Control List Entries
-            CheckDirectorySecurity();
+            //CheckDirectorySecurity();
             //CheckFileSecurity();
 
             //CalloftheWhile();
