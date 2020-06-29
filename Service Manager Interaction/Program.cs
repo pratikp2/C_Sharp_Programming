@@ -12,6 +12,7 @@ namespace Service_Manager_Interaction
         {
             return ServiceController.GetServices().Any(serviceController => serviceController.ServiceName.Equals(ServiceName));
         }
+
         static private void CheckStatusViaManagementObject()
         {
             ManagementObject wmiService = new ManagementObject("Win32_Service.Name='HpTouchpointAnalyticsService'");
@@ -33,9 +34,9 @@ namespace Service_Manager_Interaction
         {
             try
             {
-                if (serviceExists("TouchpointAnalyticsClientService"))
+                if (serviceExists("HpTouchpointAnalyticsService"))
                 {
-                    ServiceController handle = new ServiceController("TouchpointAnalyticsClientService");
+                    ServiceController handle = new ServiceController("HpTouchpointAnalyticsService");
                     Console.WriteLine(handle.ServiceName);
                     Console.WriteLine(handle.Status);
                     //AssertState.Equal(ServiceControllerStatus.Running, ctl.Status);
@@ -45,10 +46,12 @@ namespace Service_Manager_Interaction
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
+
         static int Main()
         {
             //CheckStatusViaManagementObject();
             CheckStatusViaServiceControlManager();
+
             Console.ReadLine();
             return 0;
         }

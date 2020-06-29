@@ -8,6 +8,7 @@ namespace Exception_Handeling
         {
             try
             {
+                CheckFunctionality();
                 CheckArgument();
                 CheckFormat();
             }
@@ -37,12 +38,26 @@ namespace Exception_Handeling
 
         static void CheckFormat()
         {
-            throw new ArgumentException($"Invalid Format");
+            throw new FormatException($"Invalid Format");
         }
 
         static void CheckCoustom()
         {
             throw new Exception($"Invalid Format");
+        }
+
+        static void CheckFunctionality()
+        {
+            try
+            {
+                throw new Exception("Functionality Exception");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            Console.WriteLine("After Exception");
         }
     }
 

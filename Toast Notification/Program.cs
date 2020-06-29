@@ -4,8 +4,7 @@ using System.Management.Automation;
 namespace Toast_Notification
 {
     static class Program
-    {        
-       
+    {
         static void ToastViaBurntToast()
         {
             try
@@ -13,7 +12,7 @@ namespace Toast_Notification
                 PowerShell ps = PowerShell.Create();
                 ps.AddCommand("New-BurntToastNotification");
                 ps.AddParameter("-Text", "My Title");
-                ps.AddParameter("-AppLogo", @"C:\Users\pppra\Desktop\index.jpg");
+                ps.AddParameter("-AppLogo", @"C:\Utils\SystemInstall\BatteryToastNotification\index.jpg");
                 //ps.AddParameter("-Sound", @"");       Provide Path to audio file
                 Console.WriteLine(ps.Invoke());
             }
