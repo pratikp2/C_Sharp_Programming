@@ -6,66 +6,50 @@ namespace Embed_Files_In_Binary
 {
     static class Program
     {
-        public static void ExtractResource1(String destinationPath)
+        private static string[] TextFiles = { "File1.txt", "File2.txt", "SampleExe.exe", };
+        private static string FileLocation = "EmbeddedFiles.";
+        private static string Destination = @"C:\Utils\ExtractEmbeddedResource";
+
+        private static bool ExtractEmbeddedResources()
         {
-            try
+            bool status = true;
+            foreach (string txtFile in TextFiles)
             {
-                var currentAssembly = Assembly.GetExecutingAssembly();
-                var arrResources = currentAssembly.GetManifestResourceNames();
-                foreach (var resourceName in arrResources)
+                try
                 {
-                    using (var resourceToSave = currentAssembly.GetManifestResourceStream(resourceName))
+                    Console.WriteLine(Assembly.GetExecutingAssembly().Location);
+                    using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(FileLocation + txtFile))
                     {
-                        using (var output = File.OpenWrite(destinationPath))
-                            resourceToSave.CopyTo(output);
-                        resourceToSave.Close();
+                        SaveStreamToFile(Path.Combine(Destination, txtFile), stream);
                     }
                 }
+                catch (Exception ex) { Console.WriteLine("Exception thrown while extracting exe : {0}", ex.Message); }
             }
-            catch(Exception ex) 
-            {
-                Console.WriteLine("Exception Occured : {0}", ex);
-            }
+            return status;
         }
 
-        public static void ExtractResource2()
+        public static void SaveStreamToFile(string fileFullPath, Stream stream)
         {
-            try
+            if (stream.Length == 0) return;
+
+            // Create a FileStream object to write a stream to a file
+            using (FileStream fileStream = System.IO.File.Create(fileFullPath, (int)stream.Length))
             {
-                var currentAssembly = Assembly.GetExecutingAssembly();
-                var arrResources = currentAssembly.GetManifestResourceNames();
-                string assemblyname = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-                foreach (var resourceName in arrResources)
-                {
-                    string filename = resourceName.ToString().Remove(0, assemblyname.Length + 1);                   
-                    using (var resourceToSave = currentAssembly.GetManifestResourceStream(resourceName))
-                    {
-                        if (!File.Exists(filename))
-                        {
-                            FileStream fileStreams = new FileStream(filename, FileMode.CreateNew);
-                            for (int i = 0; i < resourceToSave.Length; i++)
-                                fileStreams.WriteByte((byte)resourceToSave.ReadByte());
-                            fileStreams.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception Occured : {0}", ex);
+                // Fill the bytes[] array with the stream data
+                byte[] bytesInStream = new byte[stream.Length];
+                stream.Read(bytesInStream, 0, (int)bytesInStream.Length);
+
+                // Use FileStream object to write to the specified file
+                fileStream.Write(bytesInStream, 0, bytesInStream.Length);
             }
         }
 
 
         static int Main()
         {
-            //ExtractResource1(@"C:\Utils\EmbedInExe");
-            //ExtractResource1(@"D:\Practice\Git_Repos\C# Programming\Embed Files in Binary\LocationDestination");
-            ExtractResource2();
+            ExtractEmbeddedResources();
 
-            Console.WriteLine(Environment.ExpandEnvironmentVariables("%ProgramW6432%"));
-            Console.WriteLine(Environment.ExpandEnvironmentVariables("%ProgramFiles(x86)%"));
-
+            Console.WriteLine("Program End");
             Console.ReadLine();
             return 0;
         }

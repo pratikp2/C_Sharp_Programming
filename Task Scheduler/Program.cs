@@ -29,13 +29,16 @@ namespace Task_Scheduler
 
                     // 2. Add a trigger 
                     TimeTrigger trigger = new TimeTrigger();
-                    trigger.StartBoundary = DateTime.Now.AddHours(1);
+                    //trigger.StartBoundary = DateTime.Now.AddHours(1);
                     //trigger.StartBoundary = DateTime.Now.AddMinutes(20);
+                    trigger.StartBoundary = DateTime.Now.AddSeconds(20);
                     defination.Triggers.Add(trigger);
 
                     // 3. Add actions in Defination
-                    defination.Actions.Add(new ExecAction(@"ForFiles", "/p \"C:\\Utils\\Task_Scheduler_POC\" /c \"cmd /c del @path\"", null));
-
+                    //defination.Actions.Add(new ExecAction(@"ForFiles", "/p \"C:\\Utils\\Task_Scheduler_POC\" /c \"cmd /c del @File1.txt\"", null));
+                    //defination.Actions.Add(new ExecAction(@"forfiles", "/p \"C:\\Utils\\Task_Scheduler_POC\" /c \"cmd /c del @File1.txt\"", null));
+                    defination.Actions.Add(new ExecAction(@"forfiles", "/p \"C:\\Utils\\Task_Scheduler_POC\" /m File1.txt /c \"cmd /c del @file\"", null));
+                    //del "C:\Utils\Task_Scheduler_POC\File1.txt"
                     // 4. Register the task in root folder
                     taskService.RootFolder.RegisterTaskDefinition(taskName, defination, TaskCreation.CreateOrUpdate, "SYSTEM", null, TaskLogonType.ServiceAccount);
 
