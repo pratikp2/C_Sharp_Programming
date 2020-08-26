@@ -18,11 +18,15 @@ namespace Windows_Registry
 
                 // Open Existing key
                 RegistryKey key2 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\HP\HP Touchpoint Manager");
+                RegistryKey key3 = null;
 
+                key3 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+                key3 = key3.OpenSubKey("SOFTWARE//Microsoft//Windows//CurrentVersion//Uninstall//TruePianos 40-day Test Version_is1", true);
                 // Storing the values  
                 key1.SetValue("Setting1", "This is our setting 1");
                 key1.SetValue("Setting2", "This is our setting 2");
 
+                var path = key3.GetValue("UninstallString");
                 // Close opened keys
                 key.Close();
                 key1.Close();

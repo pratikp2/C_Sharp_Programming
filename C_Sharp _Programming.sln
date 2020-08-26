@@ -83,6 +83,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "Serializat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event Viewer", "Event Viewer\Event Viewer.csproj", "{83FCF814-6FCC-43C5-809A-8B5FE2AB6FE0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "POC-Libs", "POC-Libs", "{DEA88D13-062F-4635-91D5-61C874C1FF75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly Info", "Assembly Info\Assembly Info.csproj", "{7B767AD9-0123-4F4F-81C4-5D6F13793029}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,6 +237,10 @@ Global
 		{83FCF814-6FCC-43C5-809A-8B5FE2AB6FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83FCF814-6FCC-43C5-809A-8B5FE2AB6FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83FCF814-6FCC-43C5-809A-8B5FE2AB6FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B767AD9-0123-4F4F-81C4-5D6F13793029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B767AD9-0123-4F4F-81C4-5D6F13793029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B767AD9-0123-4F4F-81C4-5D6F13793029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B767AD9-0123-4F4F-81C4-5D6F13793029}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -273,6 +281,7 @@ Global
 		{B74DD9B6-373B-4D9B-AEC2-BE5753637B05} = {16AA7929-7F89-4B71-B28C-23A2736276F8}
 		{56DA6B0E-5B60-443C-91A9-FFA9655DFFE6} = {16AA7929-7F89-4B71-B28C-23A2736276F8}
 		{83FCF814-6FCC-43C5-809A-8B5FE2AB6FE0} = {46170989-11EF-4158-B1AD-4C2EC488125B}
+		{7B767AD9-0123-4F4F-81C4-5D6F13793029} = {DEA88D13-062F-4635-91D5-61C874C1FF75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A6E4CA5-C64B-46E0-9352-0993DD47501F}

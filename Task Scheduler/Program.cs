@@ -10,6 +10,7 @@ namespace Task_Scheduler
         {
             try
             {
+                //var trigger1 = new RegistrationTrigger { Delay = TimeSpan.FromSeconds(5), EndBoundary = DateTime.Now.Add(TimeSpan.FromSeconds(50)) };
                 using (TaskService taskService = new TaskService())
                 {
                     // 1. Create a new task definition and assign properties
@@ -23,6 +24,9 @@ namespace Task_Scheduler
                     defination.Settings.StartWhenAvailable = true;
                     defination.Settings.Hidden = false;
                     defination.Settings.Enabled = true;
+                    defination.Settings.DeleteExpiredTaskAfter = new TimeSpan(0, 0, 1);
+                    //defination.Settings.DeleteExpiredTaskAfter = new TimeSpan(1);
+
                     //defination.Principal.RunLevel = TaskRunLevel.Highest;
                     //defination.Principal.UserId = WindowsIdentity.GetCurrent().Name;
                     //defination.Principal.LogonType = TaskLogonType.InteractiveToken;
@@ -32,6 +36,7 @@ namespace Task_Scheduler
                     //trigger.StartBoundary = DateTime.Now.AddHours(1);
                     //trigger.StartBoundary = DateTime.Now.AddMinutes(20);
                     trigger.StartBoundary = DateTime.Now.AddSeconds(20);
+                    trigger.EndBoundary = DateTime.Now.AddSeconds(25);
                     defination.Triggers.Add(trigger);
 
                     // 3. Add actions in Defination

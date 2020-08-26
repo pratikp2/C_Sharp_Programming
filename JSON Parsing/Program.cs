@@ -5,9 +5,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Web.Script.Serialization;
-
+using System.Runtime.Serialization.Json;
 
 namespace JSON_Parsing
 {
@@ -19,7 +18,6 @@ namespace JSON_Parsing
             public string name { get; set; }
             [DataMember]
             public string age { get; set; }
-
             private static void ParseJSON()
             {
                 //string example = @"{""name"":""John Doe"",""age"":20}";     //OR
@@ -50,10 +48,50 @@ namespace JSON_Parsing
                 Console.WriteLine();
             }
         }
+        public class INFO
+        {
+            [JsonProperty("Name")]
+            public string Name { get; set; } = "A";
+
+            [JsonProperty("Age")]
+            public string Age { get; set; } = "25";
+
+            [JsonProperty("Gender")]
+            public string Gender { get; set; } = "Male";
+        }
+        private static void ExtractJSONInfo()
+        {
+            try
+            {
+                List<INFO> info = null;
+                JObject jObject = JObject.Parse(File.ReadAllText(@"C:\My_GitHub\C# Programing\JSON Parsing\data.json"));
+                //OR
+                using (StreamReader file = File.OpenText(@"C:\My_GitHub\C# Programing\JSON Parsing\data.json"))
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    JObject jsonobject = (JObject)JToken.ReadFrom(reader);
+                }
+
+                JToken jToken = jObject.SelectToken("Person");
+
+                string jTokenString = jToken?.ToString();
+                if (!string.IsNullOrEmpty(jTokenString))
+                    info = JsonConvert.DeserializeObject<List<INFO>>(jTokenString);
+
+                if (info != null)
+                    foreach (var item in info)
+                    {
+                        Console.WriteLine("Name     :   {0}", item.Name);
+                        Console.WriteLine("Age      :   {0}", item.Age);
+                        Console.WriteLine("Gender   :   {0}", item.Gender);
+                        Console.WriteLine("------------------------------------");
+                    }
+            }
+            catch (Exception ex) { Console.WriteLine("Exception Occured : {0}", ex.Message); }
+        }
         static int Main()
         {
-
-
+            ExtractJSONInfo();
             Console.WriteLine("Program End");
             Console.ReadLine();
             return 0;
