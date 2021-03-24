@@ -8,8 +8,8 @@ namespace Test
         static void Main(string[] args)
         {
             try
-            {   
-                FileInfo info = new FileInfo("D:/Practice/Git_Repos/Windows_Programming/Utils/Sample_Text");
+            {
+                /*FileInfo info = new FileInfo("D:/Practice/Git_Repos/Windows_Programming/Utils/Sample_Text");
                 Console.WriteLine("Access Credentials : {0}", (System.Security.Principal.WindowsIdentity.GetCurrent()).Name);
 
                 using (FileStream fileStream = info.OpenRead())
@@ -17,7 +17,16 @@ namespace Test
                 {
                     fileReader.ReadToEnd();
                 }
-                Console.WriteLine("Data Read Successfully");
+                Console.WriteLine("Data Read Successfully");*/
+
+                var value = System.Environment.GetEnvironmentVariable("TA_ENV123");
+                if (value != null)
+                {
+                    string value3 = value.ToString();
+                    Console.WriteLine(value3);
+                }
+                else
+                    Console.WriteLine("Null Value Found");
             }
             catch (Exception ex)
             {

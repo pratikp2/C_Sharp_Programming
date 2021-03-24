@@ -146,6 +146,7 @@ namespace Event_Viewer
                     }
 
                     //  Read Event Data specific to Event type.
+                    _currentEvent["Time Stamp"] = record.TimeCreated;
                     _currentEvent["ThreatID"] = _EventData.ContainsKey("Threat ID") ? string.IsNullOrWhiteSpace(_EventData["Threat ID"]) ? "NA" : _EventData["Threat ID"] : "NA";
                     _currentEvent["ThreatName"] = _EventData.ContainsKey("Threat Name") ? string.IsNullOrWhiteSpace(_EventData["Threat Name"]) ? "NA" : _EventData["Threat Name"] : "NA";
                     _currentEvent["Severity"] = _EventData.ContainsKey("Severity ID") ? string.IsNullOrWhiteSpace(_EventData["Severity ID"]) ? "NA" : _EventData["Severity ID"] : "NA";
@@ -161,6 +162,7 @@ namespace Event_Viewer
                     _currentEvent["ErrorDescription"] = _EventData.ContainsKey("Error Description") ? string.IsNullOrWhiteSpace(_EventData["Error Description"]) ? "NA" : _EventData["Error Description"] : "NA";
                     _currentEvent["SignatureVersion"] = _EventData.ContainsKey("Security intelligence Version") ? string.IsNullOrWhiteSpace(_EventData["Security intelligence Version"]) ? "NA" : _EventData["Security intelligence Version"] : "NA";
                     _currentEvent["EngineVersion"] = _EventData.ContainsKey("Engine Version") ? string.IsNullOrWhiteSpace(_EventData["Engine Version"]) ? "NA" : _EventData["Engine Version"] : "NA";
+                    _currentEvent["CoRelationID"] = record.ActivityId;
 
                     foreach (var item in _currentEvent)
                         Console.WriteLine("{0}  :   {1}",item.Key,item.Value);

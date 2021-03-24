@@ -86,6 +86,10 @@ namespace JSON_Parsing
                         Console.WriteLine("Gender   :   {0}", item.Gender);
                         Console.WriteLine("------------------------------------");
                     }
+                string t = "abcd";
+                JToken tp = JToken.Parse("{Config : \""+ t +"\"}");
+                jObject.Add("CongifData",tp);
+
             }
             catch (Exception ex) { Console.WriteLine("Exception Occured : {0}", ex.Message); }
         }

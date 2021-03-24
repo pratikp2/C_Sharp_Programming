@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9114C57D-2B92-4690-90DB-C64D79DDFB58}</ProjectGuid>
+    <ProjectGuid>{A4FFBFAF-580F-47CE-93F4-08AB9A864D38}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Battery_Indicator_Toast_Notification</RootNamespace>
     <AssemblyName>Battery Indicator Toast Notification</AssemblyName>
