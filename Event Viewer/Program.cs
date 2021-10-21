@@ -17,7 +17,6 @@ namespace Event_Viewer
         private static string SecurityEventLog = "Security";
         private static string SystemEventLog = "System";
 
-
         static void ReadEvenLog(string EventLogType)
         {
             EventLog eventLog = new EventLog();
@@ -31,7 +30,7 @@ namespace Event_Viewer
             using (EventLog eventLog = new EventLog(EventLogType))
             {
                 eventLog.Source = EventLogType;
-                eventLog.WriteEntry("Test Log message", EventLogEntryType.Information, 101, 1);
+                eventLog.WriteEntry("Test Log message 1", EventLogEntryType.Information, 101, 1);
             }
         }
         static void cleanEventLogs(string EventLogType)
@@ -176,6 +175,7 @@ namespace Event_Viewer
         static int Main()
         {
             GetRecordsInfo();
+            WriteEventLog("HP Analytics");
             //QueryEventViewer();            
 
             Console.WriteLine("Program End");
